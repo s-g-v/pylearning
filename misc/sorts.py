@@ -61,7 +61,7 @@ def fib(n):
 
 
 if __name__=="__main__":
-    l = random_list(10)
+    l = _random_list(10)
     buble(l)
     select(l)
     insert(l)
