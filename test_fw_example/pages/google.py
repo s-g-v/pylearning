@@ -15,7 +15,6 @@ class GooglePage(BasePage):
     def search(self, text_to_search):
         self.search_field.send_keys(text_to_search)
         self.search_field.submit()
-        # self.search_button.click()
         return ResultPage()
 
 
