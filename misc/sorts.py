@@ -55,6 +55,11 @@ def fib(n):
     print("Fibonachi number #" + str(n) + " is " + str(x))
 
 
+def factorial(n):
+    from functools import reduce
+    return reduce(lambda x, y: x * y, range(1, n))
+
+
 if __name__ == "__main__":
     l = _random_list(10)
     buble(l)
