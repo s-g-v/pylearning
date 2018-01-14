@@ -3,25 +3,25 @@
 import random
 import sys
 
+
 def _come_up_number():
-    return str(random.randint(1000,9999))
+    return str(random.randint(1000, 9999))
 
 
 def _match_input(pc_number, user_number):
-    bulls=0
-    cows=0
+    bulls, cows = 0, 0
     for i, digit in enumerate(user_number):
         if digit in pc_number:
-            bulls+=1
+            bulls += 1
         if user_number[i] == pc_number[i]:
-            cows+=1
-    return (bulls, cows)
+            cows += 1
+    return bulls, cows
 
 
 def _user_input():
     user_number = input()
     while not (len(user_number) == 4 and user_number.isdigit()):
-        if user_number.lower() in ("exit","quit","q"):
+        if user_number.lower() in ("exit", "quit", "q"):
             print("Good buy!")
             sys.exit()
         print("Please enter four-digit number, or 'exit', 'quit', 'q' to finish game")
