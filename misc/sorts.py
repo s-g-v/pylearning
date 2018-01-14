@@ -5,62 +5,59 @@ import random
 
 def _print_decorator(func):
     def decorated_func(src):
-        print(func.__name__.capitalize() +" sort")
+        print(func.__name__.capitalize() + " sort")
         print("Source list " + str(src))
         result = func(src)
         print("Result list " + str(result) + "\n")
     return decorated_func
 
 
-def _random_list(len, min=-10, max=10):
-    result=[]
-    for i in range(len):
-        result.append(random.randint(min,max))
-    return result
+def _random_list(length, min=-10, max=10):
+    return [random.randint(min, max) for _ in range(length)]
 
 
 @_print_decorator
 def buble(to_sort):
-    src = list(to_sort)
-    for n in range(1,len(src)):
-        for i in range(len(src)-n):
-            if src[i] > src[i+1]:
-               src[i],src[i+1]=src[i+1],src[i]
-    return src
+    arr = list(to_sort)
+    for n in range(1, len(arr)):
+        for i in range(len(arr)-n):
+            if arr[i] > arr[i+1]:
+               arr[i], arr[i+1] = arr[i+1], arr[i]
+    return arr
 
 
 @_print_decorator
 def select(to_sort):
-    src = list(to_sort)
-    for i in range(len(src)):
+    arr = list(to_sort)
+    for i in range(len(arr)):
         n = i + 1
-        while n < len(src):
-            if src[n] < src[i]:
-                src[n],src[i] = src[i],src[n]
-            n+=1
-    return src
+        while n < len(arr):
+            if arr[n] < arr[i]:
+                arr[n], arr[i] = arr[i], arr[n]
+            n += 1
+    return arr
 
 
 @_print_decorator
 def insert(to_sort):
-    src = list(to_sort)
-    for i in range(1, len(src)):
-        while i > 0 and src[i - 1] > src[i]:
-            src[i - 1], src[i] = src[i], src[i - 1]
-            i-=1
-    return src
+    arr = list(to_sort)
+    for i in range(1, len(arr)):
+        while i > 0 and arr[i - 1] > arr[i]:
+            arr[i - 1], arr[i] = arr[i], arr[i - 1]
+            i -= 1
+    return arr
 
 
 def fib(n):
     x = 1
     y = 1
-    for i in range (2, n):
+    for i in range(2, n):
         y = x + y
         x = y - x
     print("Fibonachi number #" + str(n) + " is " + str(y))
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     l = _random_list(10)
     buble(l)
     select(l)
