@@ -49,12 +49,10 @@ def insert(to_sort):
 
 
 def fib(n):
-    x = 1
-    y = 1
-    for i in range(2, n):
-        y = x + y
-        x = y - x
-    print("Fibonachi number #" + str(n) + " is " + str(y))
+    x, y = 0, 1
+    for i in range(1, n):
+        x, y = y, x + y
+    print("Fibonachi number #" + str(n) + " is " + str(x))
 
 
 if __name__ == "__main__":
