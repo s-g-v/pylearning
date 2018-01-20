@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import random
+import time
 
 
 def _print_decorator(func):
@@ -12,21 +13,32 @@ def _print_decorator(func):
     return decorated_func
 
 
-def _random_list(length, min=-10, max=10):
-    return [random.randint(min, max) for _ in range(length)]
+def _timer(func):
+    def decorated_func(args):
+        start = time.time()
+        result = func(args)
+        print("Calculation time: %.4f ms" % ((time.time() - start) * 1000))
+        return result
+    return decorated_func
+
+
+def _random_list(length, min_val=-20, max_val=20):
+    return [random.randint(min_val, max_val) for _ in range(length)]
 
 
 @_print_decorator
+@_timer
 def buble(to_sort):
     arr = list(to_sort)
     for n in range(1, len(arr)):
         for i in range(len(arr)-n):
             if arr[i] > arr[i+1]:
-               arr[i], arr[i+1] = arr[i+1], arr[i]
+                arr[i], arr[i+1] = arr[i+1], arr[i]
     return arr
 
 
 @_print_decorator
+@_timer
 def select(to_sort):
     arr = list(to_sort)
     for i in range(len(arr)):
@@ -39,6 +51,7 @@ def select(to_sort):
 
 
 @_print_decorator
+@_timer
 def insert(to_sort):
     arr = list(to_sort)
     for i in range(1, len(arr)):
@@ -61,7 +74,7 @@ def factorial(n):
 
 
 if __name__ == "__main__":
-    l = _random_list(10)
+    l = _random_list(20)
     buble(l)
     select(l)
     insert(l)
