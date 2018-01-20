@@ -2,5 +2,5 @@
 /test_fw_example/geckodriver.log
 /test_fw_example/tests/.cache/
 /test_fw_example/allure-report/
-/test_fw_example/reports/
+/test_fw_example/results/
 /test_fw_example/path.sh

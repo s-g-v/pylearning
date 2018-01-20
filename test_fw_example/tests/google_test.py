@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 import allure
 import pytest
+import sys
+import os
+from os.path import dirname
+FW_PATH = dirname(dirname(os.path.abspath(__file__)))
+sys.path.append(dirname(FW_PATH))
 from test_fw_example.pages.google import GooglePage
 from test_fw_example.tests.common import BaseTest
 
@@ -25,4 +30,4 @@ class TestGoogle(BaseTest):
 
 
 if __name__ == '__main__':
-    pytest.main()
+    pytest.main(['--alluredir', os.path.join(FW_PATH, 'results')])
