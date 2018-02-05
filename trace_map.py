@@ -4,6 +4,7 @@ import socket
 import random
 import time
 import argparse
+from geoip import geolite2
 
 
 def create_receiver(port, timeout=1):
@@ -23,9 +24,16 @@ def create_sender(ttl):
 
 
 def get_location(ip):
-    from geoip import geolite2
     result = geolite2.lookup(ip)
-    return result if result else ''
+    location = []
+    if result:
+        location.append(result.country)
+        if result.subdivisions:
+            location.extend(result.subdivisions)
+        if result.timezone != 'None':
+            location.append(result.timezone)
+        location.append(result.location)
+    return location
 
 
 def trace(dst, hops=30):
@@ -52,7 +60,9 @@ def trace(dst, hops=30):
             sender.close()
 
         if addr and duration:
-            print('{:<4} {} \t{} ms \t{}'.format(ttl, addr[0], duration, get_location(addr[0])))
+            location = get_location(addr[0])
+            str_location = ', '.join(location[:-1]) + ', ({:.3f}, {:.3f})'.format(*location[-1]) if location else ''
+            print('{:<4} {:<15} \t{:<6}ms \t{}'.format(ttl, addr[0], duration, str_location))
             if addr[0] == dst_ip:
                 break
         else:
