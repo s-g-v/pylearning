@@ -73,8 +73,24 @@ def factorial(n):
     return reduce(lambda x, y: x * y, range(1, n))
 
 
+def rec_xor(arr):
+    return rec_xor([arr[i] ^ arr[i + 1] for i in range(len(arr) - 1)]) if len(arr) > 1 else arr[0]
+
+
+def bitxor(M, N):
+    return rec_xor([i ^ (i+1) for i in range(M, N, 2)])
+
+
+def bitxor_logn(M, N):
+    if M == N-1:
+        return M ^ N
+    avg = (M + N) // 2
+    return bitxor_logn(M, avg) ^ bitxor_logn(avg + (M + N) % 2, N)
+
 if __name__ == "__main__":
-    l = _random_list(20)
-    buble(l)
-    select(l)
-    insert(l)
+    # l = _random_list(20)
+    # buble(l)
+    # select(l)
+    # insert(l)
+    print(bitxor_logn(5, 8))
+    print(bitxor_logn(5, 14))
