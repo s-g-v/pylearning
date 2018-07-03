@@ -14,9 +14,9 @@ def _print_decorator(func):
 
 
 def _timer(func):
-    def decorated_func(args):
+    def decorated_func(*args):
         start = time.time()
-        result = func(args)
+        result = func(*args)
         print("Calculation time: %.4f ms" % ((time.time() - start) * 1000))
         return result
     return decorated_func
@@ -73,24 +73,28 @@ def factorial(n):
     return reduce(lambda x, y: x * y, range(1, n))
 
 
-def rec_xor(arr):
-    return rec_xor([arr[i] ^ arr[i + 1] for i in range(len(arr) - 1)]) if len(arr) > 1 else arr[0]
-
-
+@_timer
 def bitxor(M, N):
-    return rec_xor([i ^ (i+1) for i in range(M, N, 2)])
+    arr = [i ^ (i+1) for i in range(M, N)]
+    while len(arr) > 2:
+        arr = [arr[i] ^ arr[i + 1] for i in range(len(arr) - 1)]
+    return arr[0]
 
 
 def bitxor_logn(M, N):
+    if M == N:
+        return 0
     if M == N-1:
+        print(M, N, "=", M ^ N)
         return M ^ N
     avg = (M + N) // 2
     return bitxor_logn(M, avg) ^ bitxor_logn(avg + (M + N) % 2, N)
+
 
 if __name__ == "__main__":
     # l = _random_list(20)
     # buble(l)
     # select(l)
     # insert(l)
-    print(bitxor_logn(5, 8))
-    print(bitxor_logn(5, 14))
+    print(bitxor(5, 11))
+    print(bitxor_logn(5, 11))
