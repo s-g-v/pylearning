@@ -91,6 +91,14 @@ def bitxor_logn(M, N):
     return bitxor_logn(M, avg) ^ bitxor_logn(avg + (M + N) % 2, N)
 
 
+def f(a):
+    res = [a, 1, a + 1, 0]
+    return res[a % 4]
+
+
+def getXor(a, b):
+    return f(b) ^ f(a - 1)
+
 if __name__ == "__main__":
     # l = _random_list(20)
     # buble(l)
