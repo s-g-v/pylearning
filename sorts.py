@@ -105,4 +105,4 @@ if __name__ == "__main__":
     # select(l)
     # insert(l)
     print(bitxor(5, 11))
-    print(bitxor_logn(5, 11))
+    print(bitxor_rec(5, 11))
