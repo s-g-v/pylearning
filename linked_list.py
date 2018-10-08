@@ -10,6 +10,12 @@ class LinkedList:
         self.head = Node()
         self.length = 0
 
+    def add(self, data):
+        self.head.data = data
+        new_head = Node()
+        new_head.next = self.head
+        self.head = new_head
+
     def append(self, data):
         cur = self.head
         while cur.next:
@@ -38,6 +44,17 @@ class LinkedList:
         last.next = cur.next
         self.length -= 1
 
+    def remove_from_end(self, k):
+        cur = self.head
+        shift = self.head
+        for _ in range(k + 1):
+            shift = shift.next
+        while shift.next:
+            cur = cur.next
+            shift = shift.next
+        cur.next = cur.next.next
+        self.length -= 1
+
     def print(self):
         elems = []
         cur = self.head
@@ -45,6 +62,18 @@ class LinkedList:
             cur = cur.next
             elems.append(cur.data)
         print(elems)
+
+    def reverse(self):
+        self._reverse(self.head.next)
+
+    def _reverse(self, cur):
+        if cur.next:
+            self._reverse(cur.next)
+            cur.next.next = cur
+            cur.next = None
+        else:
+            self.head = Node()
+            self.head.next = cur
 
 
 if __name__ == "__main__":
@@ -62,3 +91,10 @@ if __name__ == "__main__":
     ll.remove(2)
     ll.print()
     print("Length %s" % ll.length)
+    ll.remove_from_end(2)
+    ll.printer()
+    print("Length %s" % ll.length)
+    ll.add(0)
+    ll.printer()
+    ll.reverse()
+    ll.printer()
