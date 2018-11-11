@@ -10,11 +10,12 @@ class LinkedList:
         self.head = Node()
         self.length = 0
 
-    def add(self, data):
+    def insert(self, data):
         self.head.data = data
         new_head = Node()
         new_head.next = self.head
         self.head = new_head
+        self.length += 1
 
     def append(self, data):
         cur = self.head
@@ -55,7 +56,7 @@ class LinkedList:
         cur.next = cur.next.next
         self.length -= 1
 
-    def print(self):
+    def printer(self):
         elems = []
         cur = self.head
         while cur.next:
@@ -79,22 +80,22 @@ class LinkedList:
 if __name__ == "__main__":
     ll = LinkedList()
     print("Empty list")
-    ll.print()
+    ll.printer()
     print("Length %s" % ll.length)
     print("Add elements")
     for i in [1, 'a', 0.5, {}]:
         ll.append(i)
-    ll.print()
+    ll.printer()
     print("Length %s" % ll.length)
     print("Get 2nd element: %s" % ll.get(1))
     print("Remove 3rd element")
     ll.remove(2)
-    ll.print()
+    ll.printer()
     print("Length %s" % ll.length)
     ll.remove_from_end(2)
     ll.printer()
     print("Length %s" % ll.length)
-    ll.add(0)
+    ll.insert(0)
     ll.printer()
     ll.reverse()
     ll.printer()

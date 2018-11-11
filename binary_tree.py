@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+import sys
+
+
 class Node:
     def __init__(self, value):
         self.value = value
@@ -127,6 +130,16 @@ class BinaryTree:
             node.value = successor.value
             self.delete_node(successor)
 
+    def is_valid_bst(self):
+        return self._is_valid(self.root, -1 * sys.maxsize, sys.maxsize)
+
+    def _is_valid(self, node, min_value, max_value):
+        if node is None:
+            return True
+        if node.value < min_value or node.value > max_value:
+            return False
+        return self._is_valid(node.left, -1 * sys.maxsize, node.value) and self._is_valid(node.right, node.value, sys.maxsize)
+
 
 if __name__ == '__main__':
     tree = BinaryTree()
@@ -137,3 +150,4 @@ if __name__ == '__main__':
     print('Delete value 7')
     tree.delete_value(7)
     tree.print()
+    print(tree.is_valid_bst())
